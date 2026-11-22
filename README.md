@@ -2,7 +2,7 @@
 
 本机 DeepSeek Harness（DSH）用到的自建技能，分散在几个仓库里，这里统一列个清单方便查找。
 
-共 **4 个仓库 / 4 个技能**（截至 2026-11-22）。点链接直接进仓库，安装命令可直接复制。
+共 **5 个仓库 / 5 个技能**（截至 2026-11-22）。点链接直接进仓库，安装命令可直接复制。
 
 ## 一览
 
@@ -12,6 +12,7 @@
 | **github-to-cloudflare** | 把 GitHub 仓库部署到 Cloudflare | [github-to-cloudflare-skill](https://github.com/tel9980/github-to-cloudflare-skill) | 公开 | Python · MIT |
 | **tcm-herb-formula** | 中药/方剂一站式速查 + 配伍检查 | [tcm-herb-formula-skill](https://github.com/tel9980/tcm-herb-formula-skill) | 公开 | Python |
 | **fupan-publish** | A股复盘稿成稿与发布流水线 | [fupan-publish-skill](https://github.com/tel9980/fupan-publish-skill) | 公开 | Python |
+| **ima-upload** | 把本机文件/目录/网页传到 ima 知识库 | [ima-upload-skill](https://github.com/tel9980/ima-upload-skill) | 公开 | Python |
 
 ---
 
@@ -60,6 +61,20 @@ git clone https://github.com/tel9980/fupan-publish-skill.git ~/.dsh/skills/fupan
 # 体检+导出：python3 ~/.dsh/skills/fupan-publish/scripts/preflight.py <稿件.md> --fix-punct --export
 ```
 
+## 5. ima-upload · 传文件到腾讯 ima 知识库
+
+**仓库**：<https://github.com/tel9980/ima-upload-skill>（公开）
+
+把本机文件/目录/网页上传或同步到腾讯 ima 知识库。零第三方依赖，**复用本机已扫码绑定的 ima 凭证**（无需再拿 key）。支持增量同步、重名自动避让、网页导入、列库/列目录。腾讯无开放删除接口，传错需去 ima 客户端手动删。
+
+```bash
+git clone https://github.com/tel9980/ima-upload-skill.git ~/.dsh/skills/ima-upload
+# 列库：python3 ~/.dsh/skills/ima-upload/scripts/ima.py kbs
+# 传文件：python3 ~/.dsh/skills/ima-upload/scripts/ima.py upload 文件.md --kb 库名
+```
+
+> 只读的正文查询用左侧 ima 面板的 `ima_*` 工具；本技能负责写入与批量管理。
+
 ---
 
 ## 通用安装说明
@@ -67,7 +82,7 @@ git clone https://github.com/tel9980/fupan-publish-skill.git ~/.dsh/skills/fupan
 DSH 技能目录是 `~/.dsh/skills/<技能名>/`，把仓库 clone 到对应目录即可，装完**不用重启 DSH**，下次对话自动出现在技能目录。
 
 - stock-factpack 在私有 monorepo 里，用仓库自带的 `install.sh`（会同时装全局指令与技能）。
-- 其余三个是独立仓库，clone 到 `~/.dsh/skills/` 下对应名字即可。
+- 其余四个是独立仓库，clone 到 `~/.dsh/skills/` 下对应名字即可。
 - 所有脚本都是 **Python 3 + 标准库，零第三方依赖**。
 
 ## 维护
